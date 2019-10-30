@@ -16,9 +16,10 @@ end
 post '/visit' do
   @username = params[:username]
   @phone = params[:phone]
+  @barber = params[:barber]
 
   f = File.open("./public/users.txt", "a")
-  f.write "Имя клиента: #{@username},Телефон: #{@phone}\n"
+  f.write "Имя клиента: #{@username},Телефон: #{@phone}, Мастер: #{@barber}\n"
   f.close
 
   @message = "#{@username}, мы перезвоним вам для уточнения времени по телефону #{@phone}."
