@@ -21,11 +21,17 @@ post '/visit' do
 
   hh = {:username => 'Введите ваше имя.', :phone => 'Введите ваш телефон'}
 
+   # @error = hh.select {|key,_| params[key] == ''}.values.join(", ") это тоже самое что внизу
+   # if @error != ''
+   # return erb :visit
+   # end
+
   hh.each do |key, value|
 
     if params[key] == '' #если параметр пустой
       # переменной error присвоит vulue по ключу key из хэша
       # т.е переменной error присвоить сообщение об ошибке
+      # @error = hh.select {|key,_| params[key] == ''}.values.join(", ")
       @error = hh[key]
       return erb :visit
     end
@@ -38,12 +44,6 @@ post '/visit' do
   @message = "#{@username}, мы перезвоним вам для уточнения времени по телефону #{@phone}."
   erb :message
 end
-
-# get '/public/users.txt' do
-#   @message = "Кто хочет записаться на стрижку."
-#   f = File.foreach("./public/users.txt") { |line|  }
-#   puts line
-# end
 
 post '/contacts' do
   @email = params[:email]
