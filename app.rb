@@ -17,17 +17,20 @@ post '/visit' do
   @username = params[:username]
   @phone = params[:phone]
   @barber = params[:barber]
+  @color = params[:color]
 
   f = File.open("./public/users.txt", "a")
-  f.write "Имя клиента: #{@username},Телефон: #{@phone}, Мастер: #{@barber}\n"
+  f.write "Имя клиента: #{@username},Телефон: #{@phone}, Мастер: #{@barber}, Цает краски: #{@color}\n"
   f.close
 
   @message = "#{@username}, мы перезвоним вам для уточнения времени по телефону #{@phone}."
   erb :message
 end
 
-# get '/public' do
-#   erb :public
+# get '/public/users.txt' do
+#   @message = "Кто хочет записаться на стрижку."
+#   f = File.foreach("./public/users.txt") { |line|  }
+#   puts line
 # end
 
 post '/contacts' do
