@@ -21,7 +21,23 @@ post '/visit' do
   f.write "Имя клиента: #{@username},Телефон: #{@phone}\n"
   f.close
 
-  @message = "#{@username}, мы перезвонил вам для уточнения времени по телефону #{@phone}."
+  @message = "#{@username}, мы перезвоним вам для уточнения времени по телефону #{@phone}."
+  erb :message
+end
+
+# get '/public' do
+#   erb :public
+# end
+
+post '/contacts' do
+  @email = params[:email]
+  @message_contacts = params[:message_contacts]
+
+  f = File.open("./public/contacts.txt", "a")
+  f.write "e-mail клиента: #{@email},Сообщение: #{@message_contacts}\n"
+  f.close
+
+  @message = "Мы ответим Вам в ближайшее время."
   erb :message
 end
 
