@@ -19,6 +19,18 @@ post '/visit' do
   @barber = params[:barber]
   @color = params[:color]
 
+  hh = {:username => 'Введите ваше имя.', :phone => 'Введите ваш телефон'}
+
+  hh.each do |key, value|
+
+    if params[key] == '' #если параметр пустой
+      # переменной error присвоит vulue по ключу key из хэша
+      # т.е переменной error присвоить сообщение об ошибке
+      @error = hh[key]
+      return erb :visit
+    end
+  end
+
   f = File.open("./public/users.txt", "a")
   f.write "Имя клиента: #{@username},Телефон: #{@phone}, Мастер: #{@barber}, Цает краски: #{@color}\n"
   f.close
