@@ -13,9 +13,9 @@
 <label for="inputEmail3" class="col-sm-2 control-label">Мастер:</label>
 <div class="col-sm-10">
 <select class="form-control" name='barber'>
-  <option <%= @barber == 'Иванова Татьяна' ? 'selected' : '' %> >Иванова Татьяна</option>
-  <option <%= @barber == 'Петрова Анна' ? 'selected' : '' %> >Петрова Анна</option>
-  <option <%= @barber == 'Бульба Тарас' ? 'selected' : '' %> >Бульба Тарас</option>
+  <% @barbers.each do |item| %>
+  <option <%= @barber == item['name'] ? 'selected' : '' %>><%= item['name'] %> </option>
+  <%end%>
 </select>
 </div>
 
