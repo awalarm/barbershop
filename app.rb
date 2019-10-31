@@ -3,7 +3,9 @@ require 'sinatra'
 require 'sqlite3'
 
 def get_db
-  return SQLite3::Database.new 'barbershop.db'
+  db = SQLite3::Database.new 'barbershop.db'
+  db.results_as_hash = true
+  return db
 end
 
 configure do
@@ -70,8 +72,6 @@ post '/visit' do
   erb :message
 end
 
-
-
 post '/contacts' do
   @email = params[:email]
   @message_contacts = params[:message_contacts]
@@ -84,4 +84,9 @@ post '/contacts' do
   erb :message
 end
 
+get '/showusers' do
+  db = get_db
+  @results = db.execute 'select * from Users order by id desc'
+  erb :showusers
+end
 

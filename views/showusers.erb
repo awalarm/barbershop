@@ -1,0 +1,17 @@
+<h3>Ваши клиенты</h3>
+
+<%= @results %>
+<table class="table"> 
+	<% @results.each do |row| %>
+		<tr>
+			<td><%= row['id'] %></td>
+			<td><%= row['username'] %></td>
+			<td><%= row['phone']%></td>
+			<td><%= row['date_time'] %></td>
+			<td><%= row['barber'] %></td>
+			<td><%= row['color'] %></td>
+		</tr>
+	
+
+	<% end %>
+</table>
