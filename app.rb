@@ -11,7 +11,8 @@ configure do
   db.execute 'CREATE TABLE IF NOT  EXISTS "Users"
   ("id" INTEGER PRIMARY KEY AUTOINCREMENT, 
    "username" TEXT,  
-   "phone" TEXT, 
+   "phone" TEXT,
+   "date_time" TEXT, 
    "barber" TEXT, 
    "color" TEXT )'
 end
@@ -33,9 +34,10 @@ post '/visit' do
   @username = params[:username]
   @phone = params[:phone]
   @barber = params[:barber]
+  @datetime = params[:datetime]
   @color = params[:color]
 
-  hh = {:username => 'Введите ваше имя.', :phone => 'Введите ваш телефон'}
+  hh = {:username => 'Введите ваше имя.', :phone => 'Введите ваш телефон', :datetime => 'Ведите время записи'}
 
    # @error = hh.select {|key,_| params[key] == ''}.values.join(", ") это тоже самое что внизу
    # if @error != ''
@@ -58,10 +60,11 @@ post '/visit' do
    Users
    (username, 
       phone, 
+      date_time,
       barber, 
       color
     ) 
-    values (?, ?, ?, ?)', [@username, @phone, @barber, @color]
+    values (?, ?, ?, ?, ?)', [@username, @phone, @datetime, @barber, @color]
 
   @message = "#{@username}, мы перезвоним вам для уточнения времени по телефону #{@phone}."
   erb :message
