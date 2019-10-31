@@ -1,5 +1,18 @@
 require 'rubygems'
 require 'sinatra'
+require 'sqlite3'
+
+configure do
+  @db = SQLite3::Database.new 'barbershop.db'
+  @db.execute 'CREATE TABLE IF NOT  EXISTS "User"
+  ("id" INTEGER PRIMARY KEY AUTOINCREMENT, 
+   "name" TEXT,  
+   "phone" TEXT, 
+   "barber" TEXT, 
+   "color" TEXT )'
+end
+
+
 
 get '/' do
   erb 'что писать?'
