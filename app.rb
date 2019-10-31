@@ -2,16 +2,19 @@ require 'rubygems'
 require 'sinatra'
 require 'sqlite3'
 
+def get_db
+  return SQLite3::Database.new 'barbershop.db'
+end
+
 configure do
-  @db = SQLite3::Database.new 'barbershop.db'
-  @db.execute 'CREATE TABLE IF NOT  EXISTS "User"
+  db = get_db
+  db.execute 'CREATE TABLE IF NOT  EXISTS "Users"
   ("id" INTEGER PRIMARY KEY AUTOINCREMENT, 
-   "name" TEXT,  
+   "username" TEXT,  
    "phone" TEXT, 
    "barber" TEXT, 
    "color" TEXT )'
 end
-
 
 
 get '/' do
@@ -50,13 +53,21 @@ post '/visit' do
     end
   end
 
-  f = File.open("./public/users.txt", "a")
-  f.write "Имя клиента: #{@username},Телефон: #{@phone}, Мастер: #{@barber}, Цает краски: #{@color}\n"
-  f.close
+   db = get_db
+   db.execute 'insert into 
+   Users
+   (username, 
+      phone, 
+      barber, 
+      color
+    ) 
+    values (?, ?, ?, ?)', [@username, @phone, @barber, @color]
 
   @message = "#{@username}, мы перезвоним вам для уточнения времени по телефону #{@phone}."
   erb :message
 end
+
+
 
 post '/contacts' do
   @email = params[:email]
